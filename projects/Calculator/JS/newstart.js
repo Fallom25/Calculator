@@ -98,6 +98,9 @@ const equalsClick = () => {
 
 const  happyClick = () => {
 	document.getElementById("img1").style.display = "block";
+	setTimeout(() => {
+		document.getElementById("img1").style.display = "none";
+	},5000);  
 }
 
 // multply deccimal points
