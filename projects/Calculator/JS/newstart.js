@@ -1,12 +1,10 @@
 if(document.readyState == 'loading'){
 	document.addEventListener('DOMContentLoaded', ready);
-}else{
+} else{
 	ready();
 }
 
-let currentNum = 0;
-let newNum = 0;
-let symbol = '';
+const regex = /(?<group1>\-?\d+\.?\d*)(?<group2>[\*\/\+\-])(?<group3>\-?\d+\.?\d*)/;
 
 function ready(){
     const clearBtn = document.getElementById('clear__btn');
@@ -33,67 +31,28 @@ function ready(){
 const numberClick = (event) => {
 	let output = document.getElementById('output');
 	let number = event.target.value;
+
 	if(output.innerHTML === '0'){
 		output.innerHTML = `${number}`;
 	}
-	// else if(output.innerHTML.includes('.')){
-	// 	alert("Error too many decimal points");
-	// 	clearClick();
-	// }
-	else{
+	else {
 		output.innerHTML += `${number}`;
 	}
 }
 
 const mathClick = (event) => {
-	output.innerHTML += event.target.innerHTML;
-
-	let groups = output.innerHTML.match(/(?<group1>\-?\d+\.?\d*)(?<group2>[\*\/\+\-])(?<group3>\-?\d+\.?\d*)/).groups;
-
-	let group1 = parseFloat(groups.group1);
-	let group3 = parseFloat(groups.group3);
-	let group2 = groups.group2;
-
-	if(group2 === '/'){
-		result = group1 / group3;
-	}else if(group2 === '*'){
-		result = group1 * group3;
-	}else if(group2 === '-'){
-		result = group1 - group3;
-	}else if(group2 === '+'){
-		result = group1 + group3;	
+	output.innerHTML = equationCheck(output.innerHTML);
+	if (output.innerHTML !== '0'){
+		output.innerHTML +=	event.target.innerHTML;
 	}
-
-	output.innerHTML = result += event.target.innerHTML;	
 }
 
-
 const clearClick = () => {
-	document.getElementById('output').innerHTML = '0';
-	currentNum = 0;
-	newNum = 0;
-	symbol = '';
-	document.getElementById("img1").style.display = "none";
+	output.innerHTML = '0';
 }
 
 const equalsClick = () => {
-	let groups = output.innerHTML.match(/(?<group1>\-?\d+\.?\d*)(?<group2>[\*\/\+\-])(?<group3>\-?\d+\.?\d*)/).groups;
-
-	let group1 = parseFloat(groups.group1);
-	let group3 = parseFloat(groups.group3);
-	let group2 = groups.group2;
-		
-	if(group2 === '/'){
-		result = group1 / group3;
-	}else if(group2 === '*'){
-		result = group1 * group3;
-	}else if(group2 === '-'){
-		result = group1 - group3;
-	}else if(group2 === '+'){
-		result = group1 + group3;	
-	}
-
-	output.innerHTML = result
+	output.innerHTML = equationCheck(output.innerHTML);
 }
 
 const  happyClick = () => {
@@ -103,8 +62,49 @@ const  happyClick = () => {
 	},5000);  
 }
 
+const equationCheck = (expression) => {
+
+	if (['+', '-', '*', '/'].includes(expression[expression.length-1])){
+		alert("Please do not use multiple operators in a row");
+		return '0';
+	}
+
+	if((expression.match(/\./g) || []).length > 2){
+		alert("Error too many decimal points");
+		return '0';
+	}
+
+	if (expression[expression.length-1].includes('.')) {
+		expression += '00';
+	}
+
+	if (expression.match(regex) === null){
+		return expression;
+	}
+	return calculate(expression);
+}
+
+const calculate = (expression) => {
+
+	let groups = expression.match(regex).groups;
+	let group1 = parseFloat(groups.group1);
+	let group3 = parseFloat(groups.group3);
+	let group2 = groups.group2;
+
+	if(group2 === '/'){
+		return (group1 / group3).toFixed(2);
+	}else if(group2 === '*'){
+		return (group1 * group3).toFixed(2);
+	}else if(group2 === '-'){
+		return (group1 - group3).toFixed(2);
+	}else{
+		console.log("here");
+		return (group1 + group3).toFixed(2);
+	} 
+}
+
+
+
+
+
 // multply deccimal points
-// No op after op
-// No decimal after op
-// No op after decimal
-//0 after op
