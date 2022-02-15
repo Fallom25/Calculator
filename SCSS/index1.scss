@@ -1,0 +1,111 @@
+.header{
+    font-weight: bolder;
+    font-family: 'Roboto Mono', monospace;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.img{
+    &__container{
+        display: flex; 
+        justify-content: center;
+    }
+
+    &__img{
+        display: none;
+    }
+}
+
+.container{
+    
+    &__main{
+        display : flex;
+        justify-content: center;
+
+    }
+
+    &__outer{
+        margin-top: 20px;
+        width : 600px;
+        display : flex;
+        justify-content: center;
+    }
+
+    &__inner{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 300px;
+        background-color: grey;
+        border: 5px outset black;
+        border-radius: 10px;
+    }
+}
+
+.row{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:1px;
+    justify-items:center;
+    border-radius: 5px;
+    
+    &__bottom{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1px;
+    justify-items:center;
+    }
+}
+
+.output{
+    
+    &__screen{
+        background-color:black ;
+        color :white;
+        border: 3px inset grey;
+        text-align: right;
+        
+    }
+
+    &__text{
+        font-weight: bolder;
+        font-family: 'Roboto Mono', monospace;
+        font-size: xx-large;
+        margin:5px;
+    }
+}
+
+
+.btn{
+    width: 2.75em;
+    line-height: 2.096em;
+    text-align: center;
+    color: #444444;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    font-size: 1.5em;
+    margin-top: 4px;
+    border-radius: 10px;
+
+    &__equals{
+    width: 5em;
+    line-height: 2.096em;
+    text-align: center;
+    color: #444444;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    font-size: 1.5em;
+    margin: 4px;
+        border-radius: 5px;
+    }
+}
+
+// bonus:
+// buttons hover
+//buttons active
+//screen glow
+//colours
+//more me
+
+//make calculor block
+
+
